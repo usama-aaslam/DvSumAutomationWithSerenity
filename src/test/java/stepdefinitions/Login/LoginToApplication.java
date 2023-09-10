@@ -14,28 +14,17 @@ import pages.Login.LoginPage;
 public class LoginToApplication extends PageObject {
     @Steps
     LoginPage loginPage;
-    @Managed
-    WebDriver driver;
-
     @Given("User is on login page")
     public void user_is_on_login_page() {
         loginPage.open();
     }
-
-    @When("User enters valid credentials")
-    public void user_enters_valid_credentials() {
-
-        loginPage.enterCredentials( );
+    @When("User enters valid email {string} and password {string}")
+    public void user_enters_valid_email_and_password(String email, String password) {
+        loginPage.enterCredetials( email, password );
+        loginPage.clickLoginBtn();
     }
-
-    @And("User should be able to login")
+    @Then("User should be able to login")
     public void user_should_be_able_to_login() {
-        loginPage.clickLoginButton();
-
-    }
-
-    @Then("Verify user login successfully")
-    public void verify_user_login_successfully() {
         loginPage.verifyLogin();
     }
 

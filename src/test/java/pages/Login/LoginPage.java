@@ -6,25 +6,21 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 
 public class LoginPage extends PageObject {
-    /*public LoginPage() {
-        open();
-    }*/
-
     @Step
-    public void enterCredentials(){
-        $( By.id( "user-name" )).type( "standard_user" );
-        $(By.id( "password" )).type( "secret_sauce" );
-
-    }
-
-    public void clickLoginButton(){
-        $(By.id( "login-button" )).click();
+    public void enterCredetials(String email, String password){
+        $(By.xpath( "//div[contains(@class, 'panel')]//input[@id='signInFormUsername']" )).type( email );
+        $(By.xpath( "//div[contains(@class, 'panel')]//input[@id='signInFormPassword']" )).type( password );
     }
 
     @Step
-    public  void verifyLogin(){
-        String homePageURL = getDriver().getCurrentUrl();
-        Assertions.assertEquals( "https://www.saucedemo.com/inventory.html", homePageURL );
-
+    public void clickLoginBtn(){
+        $(By.xpath( "//div[contains(@class, 'panel') ]//input[@name = 'signInSubmitButton']" )).click();
     }
+
+    @Step
+    public void verifyLogin(){
+        String homePageTitle = getTitle();
+        Assertions.assertEquals( "Dashboard Home", homePageTitle );
+    }
+
 }
